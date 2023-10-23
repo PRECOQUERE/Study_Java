@@ -1,0 +1,85 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+class Concert_seat {
+	public static Scanner SC = new Scanner(System.in);
+	private String[] name = new String[10];
+	
+	protected void reservation() {
+		for(int i=0;i<10;i++) {
+			if(this.name [i] == null) System.out.print("--- ");
+			else System.out.print(this.name[i] + " ");
+		}
+		
+		System.out.print("\n이름>>");
+		String name = SC.next();
+		System.out.print("번호>>");
+		int num = SC.nextInt();
+		
+		this.name[num-1] = name;
+	}
+	
+	protected void retrieve() {
+		for(int i=0;i<10;i++) {
+			if(this.name[i] == null) System.out.print("--- ");
+			else System.out.print(this.name[i] + " ");
+		}
+		System.out.println("");
+	}
+	
+	protected void cancel() {
+		for(int i=0;i<10;i++) {
+			if(this.name[i] == null) System.out.print("--- ");
+			else System.out.print(this.name[i] + " ");
+		}
+		System.out.print("\n이름>>");
+		String name = SC.next();
+		
+		int seat = Arrays.asList(this.name).indexOf(name);
+		this.name[seat] = "";
+	}
+}
+
+public class Concert_reservation {
+	static Scanner SC;
+	private static Concert_seat S = new Concert_seat(); 
+	private static Concert_seat A = new Concert_seat(); 
+	private static Concert_seat B = new Concert_seat(); 
+	
+	public static void main(String[] args) {
+		SC = new Scanner(System.in);
+		
+		System.out.println("명품콘서트홀 예약 시스템입니다.");
+		while(true) {
+			System.out.print("예약:1, 조회:2, 취소:3, 끝내기:4>>");
+			int menu = SC.nextInt();
+			if(menu == 4) break;
+			
+			switch(menu) {
+				case 1:
+					System.out.print("좌석구분 S(1), A(2), B(3)>>");
+					int seat_gubun = SC.nextInt();
+					if(seat_gubun == 1) S.reservation();
+					else if(seat_gubun == 2) A.reservation();
+					else if(seat_gubun == 3) B.reservation();
+					
+					break;
+				case 2:
+					S.retrieve();
+					A.retrieve();
+					B.retrieve();
+					System.out.println("<<<조회를 완료하였습니다.>>>");
+					break;
+				case 3:
+					System.out.print("좌석 S:1, A:2, B:3>>");
+					seat_gubun = SC.nextInt();
+					if(seat_gubun == 1) S.cancel();
+					else if(seat_gubun == 2) A.cancel();
+					else if(seat_gubun == 3) B.cancel();
+					break;
+				case 4:
+					break;
+			}	
+		}
+	}
+}
